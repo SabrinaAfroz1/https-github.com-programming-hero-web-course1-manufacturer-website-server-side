@@ -169,7 +169,7 @@ async function run() {
 
 
         //for get all user ---------admin
-        app.get('/user', verifyJWT, async (req, res) => {
+        app.get('/user', async (req, res) => {
             const users = await userCollection.find().toArray();
             res.send(users);
         })
