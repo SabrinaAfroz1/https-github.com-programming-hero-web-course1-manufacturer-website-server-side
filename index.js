@@ -195,21 +195,7 @@ async function run() {
             res.send({ result, token: token });
         })
 
-        app.put('/user/:email', async (req, res) => {
-            const email = req.params.email;
-            const updateItem = req.body;
-            const filter = { email: email };
-            const options = { upsert: true };
-            const updateDoc = {
-                $set: {
-                    quantity: updateItem.update,
-                }
-            }
-            const result = await userCollection.updateOne(filter, updateDoc,
-                options
-            );
-            res.send(result);
-        });
+
 
         //for admin user ----------------------
         app.put('/user/admin/:email', verifyJWT, async (req, res) => {
