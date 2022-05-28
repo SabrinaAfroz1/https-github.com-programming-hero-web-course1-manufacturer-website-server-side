@@ -80,8 +80,8 @@ async function run() {
         });
 
 
-          //delete----------------------
-          app.delete('/tools/:id', async (req, res) => {
+        //delete----------------------
+        app.delete('/tools/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: ObjectId(id) };
             const result = await toolsCollection.deleteOne(query);
@@ -126,21 +126,21 @@ async function run() {
 
 
 
-        app.get('/purchase', verifyJWT, async (req, res) => {
-            const user = req.query.user;
-            const decodedEmail = req.decoded.email;
-            if (user === decodedEmail) {
-                const query = { user: user };
-                const bookings = await purchaseCollection.find(query).toArray();
-                return res.send(purchase);
-            }
-            else {
-                return res.status(403).send({ message: 'Forbidden Access' });
-            }
+        // app.get('/purchase', verifyJWT, async (req, res) => {
+        //     const user = req.query.user;
+        //     const decodedEmail = req.decoded.email;
+        //     if (user === decodedEmail) {
+        //         const query = { user: user };
+        //         const purchase = await purchaseCollection.find(query).toArray();
+        //         return res.send(purchase);
+        //     }
+        //     else {
+        //         return res.status(403).send({ message: 'Forbidden Access' });
+        //     }
 
-        })
+        // })
 
-
+        //order ---------------------------
         app.get('/purchase', async (req, res) => {
             const query = {};
             const cursor = purchaseCollection.find(query);
@@ -154,7 +154,12 @@ async function run() {
             res.send(result);
 
         })
-
+        app.delete('/purchase/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const result = await purchaseCollection.deleteOne(query);
+            res.send(result);
+        })
 
 
 
